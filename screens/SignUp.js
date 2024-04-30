@@ -3,19 +3,16 @@ import React from 'react';
 import {
   Text,
   View,
-  ImageBackground,
-  TouchableOpacity,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import Feather from "react-native-vector-icons/Feather";
-import { CheckBox } from '@rneui/base';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { COLORS, ICONSIZE, FONTSIZE, images } from '../constants';
 import { Styles } from './styles';
+import { CheckBox } from '@rneui/base';
 import { AuthHeader } from '../components';
+import Feather from "react-native-vector-icons/Feather";
 import { RFValue } from "react-native-responsive-fontsize";
-
+import { COLORS, ICONSIZE, FONTSIZE, images } from '../constants';
 
 
 export class SignUp extends React.Component {
@@ -78,7 +75,10 @@ export class SignUp extends React.Component {
     }
 
     // Password Validation
-    if (pass.trim().length < 6 || pass.trim().length == 0) {
+    if(pass.trim().length == 0){
+      this.setState({ pass_err: 'Password Field is required!' });
+      errors++;
+    } else if (pass.trim().length < 6) {
       this.setState({ pass_err: 'Pass should be more than 6 digits!' });
       errors++;
     } else {
@@ -289,6 +289,7 @@ export class SignUp extends React.Component {
                   fontSize: FONTSIZE.h6,
                   color: COLORS.PrimaryTeaRose,
                   marginLeft: RFValue(30),
+                  // marginBottom:RFValue(2),
                 }}>
                 {this.state.passCofirm_err}
               </Text>
@@ -306,6 +307,7 @@ export class SignUp extends React.Component {
                     this.setState({ acceptTerms: !this.state.acceptTerms });
                   }}
                   checkedColor={COLORS.PrimaryPurple}
+                  containerStyle={Styles.checkboxStyle}
                 />
 
               </View>

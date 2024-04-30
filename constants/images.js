@@ -1,9 +1,13 @@
 const AuthImage = require('../assets/Images/AuthBG.jpg')
-const locationImage = require('../assets/Images/locationImage.jpg')
+const cairoImage = require('../assets/Images/cairoImage.jpg')
+const moskoImage = require('../assets/Images/moskoImage.jpg')
+const kuwaitImage = require('../assets/Images/kuwaitImage.jpg')
 
 
 
 export default {
   AuthImage,
-  locationImage,
+  cairoImage,
+  moskoImage,
+  kuwaitImage,
 };

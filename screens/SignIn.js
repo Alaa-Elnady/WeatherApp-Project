@@ -26,14 +26,14 @@ export class SignIn extends React.Component {
       headerImage: images.AuthImage,
       headerTitle: "Sign In to your account",
 
-      // User Data
+      // User Data (Data entered by user)
       userEmail: '',
       email_err: '',
 
       userPassword: '',
       pass_err: '',
 
-      // Existes User Data
+      // Existes User Data (Correct Data to Sign In)
       correctEmail: 'alaa@gmail.com',
       correctPassword: 'alaa123',
     }
@@ -46,16 +46,23 @@ export class SignIn extends React.Component {
     let pass = this.state.userPassword;
     let errors = 0;
 
+    // Email Validation
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/; // asdsadsad@sadjkjshd.skldjlskjd
-    if (reg.test(email.trim()) == false || email.trim().length == 0) {
+    if (email.trim().length == 0) {
+      this.setState({ email_err: 'Email Field is required!' });
+      errors++;
+    } else if (reg.test(email.trim()) == false) {
       this.setState({ email_err: 'Please Enter correct Email!' });
       errors++;
     } else {
       this.setState({ email_err: '' });
     }
 
-    // password
-    if (pass.trim().length < 3 || pass.trim().length == 0) {
+    // Password Validation
+    if (pass.trim().length == 0) {
+      this.setState({ pass_err: 'Password Field is required!' });
+      errors++;
+    } else if (pass.trim().length < 6) {
       this.setState({ pass_err: 'Pass should be more than 6 digits!' });
       errors++;
     } else {

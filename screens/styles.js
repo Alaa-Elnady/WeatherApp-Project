@@ -1,7 +1,7 @@
+// MARK:Imports
 import { RFValue } from 'react-native-responsive-fontsize';
-import { COLORS, ICONSIZE, FONTSIZE, images } from '../constants';
-import { StyleSheet, Dimensions } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { COLORS, FONTSIZE } from '../constants';
+import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
 
@@ -143,7 +143,7 @@ export const Styles = StyleSheet.create({
     height: RFValue(50),
     paddingHorizontal: RFValue(15),
     marginTop: RFValue(8),
-    alignSelf:'center',
+    alignSelf: 'center',
     borderRadius: RFValue(5),
     borderWidth: RFValue(1),
     borderColor: COLORS.LightGray,
@@ -178,16 +178,29 @@ export const Styles = StyleSheet.create({
     // backgroundColor:'#0ff'
   },
   acceptTermsContainer: {
-    width: RFValue(300),
-    height: RFValue(60),
+    width: RFValue(320),
+    // height: RFValue(60),
     flexDirection: 'row',
-    marginTop: -RFValue(18),
+    alignItems: 'center',
+    // paddingRight:RFValue(20),
+    // marginTop: -RFValue(18),
     // backgroundColor: '#ff0',
   },
+  checkboxStyle: {
+    width: RFValue(250),
+    paddingVertical: RFValue(0),
+    // backgroundColor: '#00f'
+  },
+  // checkboxLabel: {
+  //   width:RFValue(248),
+  //   fontSize:FONTSIZE.h6,
+  //   // backgroundColor: 'red',
+  // },
   signUp_InBtn: {
     width: RFValue(300),
     height: RFValue(50),
     alignItems: 'center',
+    alignSelf: 'center',
     justifyContent: 'center',
     marginVertical: RFValue(5),
     borderRadius: RFValue(5),
@@ -207,17 +220,17 @@ export const Styles = StyleSheet.create({
     // backgroundColor:'#0ff',
   },
   forgetPassContainer: {
-    width:'38%',
-    alignSelf:'flex-end',
-    marginRight:RFValue(20),
-    alignItems:'center',
-    paddingHorizontal:RFValue(5),
-    paddingBottom:RFValue(7)
+    width: '38%',
+    alignSelf: 'flex-end',
+    marginRight: RFValue(20),
+    alignItems: 'center',
+    paddingHorizontal: RFValue(5),
+    paddingBottom: RFValue(7)
     // backgroundColor: '#0f0',
   },
-  forgetPassText:{
-    fontSize:FONTSIZE.h6,
-    color:COLORS.DarkGray,
+  forgetPassText: {
+    fontSize: FONTSIZE.h6,
+    color: COLORS.DarkGray,
   },
   socialMediaContainer: {
     alignSelf: "center",
