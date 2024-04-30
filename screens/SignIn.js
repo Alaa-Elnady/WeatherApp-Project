@@ -80,37 +80,6 @@ export class SignIn extends React.Component {
     }
   }
 
-  // axios
-  // login = () => {
-  //   const data_to_send = {
-  //     email: this.state.userEmail,
-  //     pass: this.state.userPassword,
-  //     token: 's;djafklsadjf;lksdajfdsafds987f98sd7fdfjdslkfjdsf89798dsf', // firebase
-  //   };
-
-  //   axios
-  //     .post(
-  //       'https://generation3.000webhostapp.com/project/Training/Auth/user.php',
-  //       data_to_send,
-  //     )
-  //     .then(res => {
-  //       if (res.status == 200) {
-  //         // console.log(res.data);
-  //         if (res.data == 'user not found') {
-  //           alert('user not found');
-  //         } else if (res.data == 'error happen') {
-  //           alert('Error');
-  //         } else {
-  //           console.log(res.data);
-  //           this.props.navigation.navigate('HomePage');
-  //         }
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
   render() {
     return (
       <>

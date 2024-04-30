@@ -1,4 +1,5 @@
-import React from "react"
+// MARK:Imports
+import React , {useEffect} from "react"
 import {
   Text,
   View,
@@ -6,7 +7,6 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import Feather from "react-native-vector-icons/Feather";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -15,6 +15,7 @@ import { Styles } from './styles';
 import { RFValue } from "react-native-responsive-fontsize";
 import { BackArrowHeader } from "../components";
 
+import axios from "axios";
 
 export class HomePage extends React.Component {
 
@@ -22,31 +23,54 @@ export class HomePage extends React.Component {
     super(props);
     this.state = {
 
-      cities: [
-        {
-          id: 1,
-          location: "Cairo",
-          date: "29-04-2024",
-          temperature: "28",
-          image: images.cairoImage,
-        },
-        {
-          id: 2,
-          location: "Moska",
-          date: "30-04-2024",
-          temperature: "25",
-          image: images.moskoImage,
-        },
-        {
-          id: 3,
-          location: "Kuwait",
-          date: "30-04-2024",
-          temperature: "16",
-          image: images.kuwaitImage,
-        },
-      ]
+      citiesDetails: [],
 
     };
+  }
+
+  // MARK:Functions
+  componentDidMount() {
+    let citiesNum = 2;   
+    // Note: citiesNum Variable determine the number of cities that will be viewed in HomePage  
+    for(var i=0 ; i<citiesNum ; i++) {
+      this.getCities(i);
+      // Note: I pass the i variable as a props to the getCities() function to use it in setting the id key of each cityWeatherDetails object created
+    }
+  }
+
+  getCities = async (i) => {
+    const options = {
+      method: 'GET',
+      url: 'https://weatherapi-com.p.rapidapi.com/current.json',
+      params: { q: '53.1,-0.13' },
+      headers: {
+        'X-RapidAPI-Key': 'eb261c2f00msh823eebecd8ab343p1e033fjsn55ec4005892f',
+        // 'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      // console.log('Response:' , response.data);
+
+      // Create new cityWeatherDetails object from the response of API Request
+      let cityWeatherDetails = {
+        id: i,
+        location: response.data.location.name,
+        date: response.data.location.localtime,
+        temperature: response.data.current.temp_c,
+        image: images.moskoImage,
+      };
+      
+      // Push new cityWeatherDetails object into the array of objects which is in the state
+      let allCities = this.state.citiesDetails;
+      allCities.push(cityWeatherDetails);
+      this.setState({citiesDetails : allCities});
+      // console.log(this.state.citiesDetails);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   render() {
@@ -70,7 +94,7 @@ export class HomePage extends React.Component {
           <View style={Styles.homeContentContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {/* Map */}
-              {this.state.cities.map((city, index) => (
+              {this.state.citiesDetails.map((city, index) => (
                 <TouchableOpacity key={index} style={Styles.cityWeatherContainer} >
                   <ImageBackground source={city.image} resizeMode="cover" style={Styles.cityImageStyle} imageStyle={{ borderRadius: RFValue(20) }} >
 
