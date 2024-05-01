@@ -14,7 +14,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { SocialMediaIcon } from '../components/SocialMediaIcons';
 import { COLORS, ICONSIZE, FONTSIZE, images } from '../constants';
 
-// import axios from 'axios';
+import axios from 'axios';
 
 export class SignIn extends React.Component {
 
@@ -33,9 +33,9 @@ export class SignIn extends React.Component {
       userPassword: '',
       pass_err: '',
 
-      // Existes User Data (Correct Data to Sign In)
-      correctEmail: 'alaa@gmail.com',
-      correctPassword: 'alaa123',
+      // // Existes User Data (Correct Data to Sign In)
+      // correctEmail: 'alaa@gmail.com',
+      // correctPassword: 'alaa123',
     }
   }
 
@@ -69,16 +69,64 @@ export class SignIn extends React.Component {
       this.setState({ pass_err: '' });
     }
 
+    // if (errors == 0) {
+    //   if (email == this.state.correctEmail && pass == this.state.correctPassword) {
+    //     alert('Welcome to Weather App');
+    //     this.props.navigation.navigate('HomePage');
+    //     this.signIn();
+    //   } else {
+    //     alert('Please make sure that you entered correct data');
+    //   }
+    // }
+
+
     if (errors == 0) {
-      if (email == this.state.correctEmail && pass == this.state.correctPassword) {
-        alert('Welcome to Weather App');
-        this.props.navigation.navigate('HomePage');
-        // this.login();
-      } else {
-        alert('Please make sure that you entered correct data');
-      }
+      this.signIn();
+    } else {
+      alert('Please make sure that you entered correct data');
     }
   }
+
+  signIn = async () => {
+
+    // Using axios:
+    // -----------------------
+    const options = {
+      method: 'GET',
+      url: 'https://node-express-api-tutorial.p.rapidapi.com/users',
+      headers: {
+        'X-RapidAPI-Key': 'eb261c2f00msh823eebecd8ab343p1e033fjsn55ec4005892f',
+        'X-RapidAPI-Host': 'node-express-api-tutorial.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      const users = response.data;
+      for (var i = 0; i < users.length; i++) {
+        let user = users[i];
+        var emailFounded = false;
+        for (let key in user) {
+          if (key == 'email') {
+            if (user[key] == this.state.userEmail) {
+              emailFounded = true;
+              alert('Welcome to Weather App');
+              this.props.navigation.navigate('HomePage');
+              i = 2;
+              break;
+            }
+          }
+        }
+      }
+      if (i == 2 && emailFounded == false) {
+        alert('The email you entered is NOT found! Please enter correct email')
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+
 
   render() {
     return (

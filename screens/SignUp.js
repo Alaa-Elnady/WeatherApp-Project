@@ -14,6 +14,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { RFValue } from "react-native-responsive-fontsize";
 import { COLORS, ICONSIZE, FONTSIZE, images } from '../constants';
 
+import axios from 'axios';
 
 export class SignUp extends React.Component {
 
@@ -75,7 +76,7 @@ export class SignUp extends React.Component {
     }
 
     // Password Validation
-    if(pass.trim().length == 0){
+    if (pass.trim().length == 0) {
       this.setState({ pass_err: 'Password Field is required!' });
       errors++;
     } else if (pass.trim().length < 6) {
@@ -105,10 +106,40 @@ export class SignUp extends React.Component {
     }
 
     if (errors == 0) {
+      this.signUp();
       alert('You have Signed Up Successfully .. Please Sign In');
       this.props.navigation.navigate('SignIn');
       // axios
     }
+  }
+
+  signUp = async () => {
+
+    // Using axios:
+    // -----------------------
+    const options = {
+      method: 'POST',
+      url: 'https://node-express-api-tutorial.p.rapidapi.com/users',
+      headers: {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key': 'eb261c2f00msh823eebecd8ab343p1e033fjsn55ec4005892f',
+        'X-RapidAPI-Host': 'node-express-api-tutorial.p.rapidapi.com'
+      },
+      data: {
+        name: this.state.userName,
+        email: this.state.userEmail,
+        password: this.state.userPassword,
+        passConfirm: this.state.passConfirmation,
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+
   }
 
 
@@ -119,7 +150,7 @@ export class SignUp extends React.Component {
         <View style={Styles.PageContainer}>
 
           {/* SignUp Header */}
-          <AuthHeader headerTitle={this.state.headerTitle} headerImage={this.state.headerImage} navigation={this.props.navigation} isAuth={false}/>
+          <AuthHeader headerTitle={this.state.headerTitle} headerImage={this.state.headerImage} navigation={this.props.navigation} isAuth={false} />
 
           {/* SignUp Content */}
           <View style={Styles.authContentContainer}>

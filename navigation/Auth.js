@@ -11,19 +11,19 @@ export function Auth(props) {
     <>
       <Stack.Navigator>
 
-        {/* SignIn */}
+        {/* SignUp */}
         <Stack.Screen
-          name="SignIn"
-          component={SignIn}
+          name="SignUp"
+          component={SignUp}
           options={{
             headerShown: false,
           }}
         />
 
-        {/* SignUp */}
+        {/* SignIn */}
         <Stack.Screen
-          name="SignUp"
-          component={SignUp}
+          name="SignIn"
+          component={SignIn}
           options={{
             headerShown: false,
           }}
