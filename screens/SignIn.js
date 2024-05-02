@@ -103,6 +103,7 @@ export class SignIn extends React.Component {
     try {
       const response = await axios.request(options);
       const users = response.data;
+      console.log(users)
       for (var i = 0; i < users.length; i++) {
         let user = users[i];
         var emailFounded = false;
@@ -112,13 +113,13 @@ export class SignIn extends React.Component {
               emailFounded = true;
               alert('Welcome to Weather App');
               this.props.navigation.navigate('HomePage');
-              i = 2;
+              i = users.length;
               break;
             }
           }
         }
       }
-      if (i == 2 && emailFounded == false) {
+      if (i == users.length && emailFounded == false) {
         alert('The email you entered is NOT found! Please enter correct email')
       }
     } catch (error) {
